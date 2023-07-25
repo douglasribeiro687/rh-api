@@ -7,6 +7,7 @@ import com.algaworks.banco.modelo.pagamento.Boleto;
 import com.algaworks.banco.modelo.pagamento.DocumentoPagavel;
 import com.algaworks.banco.modelo.pagamento.Holerite;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Principal {
@@ -14,7 +15,7 @@ public class Principal {
         Pessoa titular1 = new Pessoa();
         titular1.setNome("Douglas Ribeiro");
         titular1.setDocumento("123.123.123-99");
-        titular1.setRendimentoAnual(15_000d);
+        titular1.setRendimentoAnual(new BigDecimal(("15000")));
 
         Pessoa titular2 = new Pessoa();
         titular2.setNome("João da Silva");
@@ -28,18 +29,18 @@ public class Principal {
         try {
 
             ContaInvestimento minhaConta = new ContaInvestimento(titular1, 0001, 1020);
-            minhaConta.depositar(30_000);
-            minhaConta.sacar(1_000, 5);
-            minhaConta.creditarRendimentos(0.08);
+            minhaConta.depositar(new BigDecimal("30000"));
+            minhaConta.sacar(new BigDecimal("1000"), new BigDecimal("5"));
+            minhaConta.creditarRendimentos(new BigDecimal("0.08"));
             minhaConta.debitarTarifaMensal();
 
-            ContaEspecial suaConta = new ContaEspecial(titular2, 0002, 999, 1_000);
-            suaConta.depositar(15_000);
-            suaConta.sacar(15_500);
+            ContaEspecial suaConta = new ContaEspecial(titular2, 0002, 999, new BigDecimal("1000"));
+            suaConta.depositar(new BigDecimal("15000"));
+            suaConta.sacar(new BigDecimal("15500"));
             suaConta.debitarTarifaMensal();
 
-            Boleto boletoEscola = new Boleto(titular1, 200);
-            Holerite salarioFuncionario = new Holerite(titular1, 55, 163);
+            Boleto boletoEscola = new Boleto(titular1, new BigDecimal("200"));
+            Holerite salarioFuncionario = new Holerite(titular1, new BigDecimal("55"), 163);
 
             // exemplo de polimorfismo - impressão de dados da classe Conta
             CaixaEletronico caixaEletronico = new CaixaEletronico();

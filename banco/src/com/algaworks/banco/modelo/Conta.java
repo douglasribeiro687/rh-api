@@ -2,13 +2,14 @@ package com.algaworks.banco.modelo;
 
 import com.algaworks.banco.modelo.excecao.SaldoInsuficienteException;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public abstract class Conta {
     private Pessoa titular;
     private int agencia;
     private int numero;
-    private double saldo;
+    private BigDecimal saldo = BigDecimal.ZERO;
 
     Conta(){
     }
@@ -19,30 +20,34 @@ public abstract class Conta {
         this.numero = numero;
     }
 
-    public void depositar(double valor){
-        saldo += valor;
+    public void depositar(BigDecimal valor){
+        if (valor.compareTo(BigDecimal.ZERO) <= 0 ){
+            throw new IllegalArgumentException("Valor deve ser maior que zero!!!");
+
+        }
+        saldo = saldo.add(valor);
     }
 
-    public void sacar (double valor){
-        if ( valor <= 0 ){
+    public void sacar (BigDecimal valor){
+        if ( valor.compareTo(BigDecimal.ZERO) <= 0 ){
             throw new IllegalArgumentException("Valor deve ser maior que Zero!!!");
         }
 
-        if ( getSaldoDisponivel() - valor < 0) {
+        if ( getSaldoDisponivel().subtract(valor).compareTo(BigDecimal.ZERO) < 0) {
             throw new SaldoInsuficienteException("saldo insuficiente!!!");
         }
 
-        saldo = saldo - valor;
+        saldo = saldo.subtract(valor);
     }
 
     public abstract void debitarTarifaMensal();
 
-    public double getSaldoDisponivel(){
+    public BigDecimal getSaldoDisponivel(){
         return getSaldo();
     }
 
-    public void sacar (double valor, double taxaSacar){
-        sacar(valor+taxaSacar);;
+    public void sacar (BigDecimal valor, BigDecimal taxaSacar){
+        sacar(valor.add(taxaSacar));
     }
 
     public Pessoa getTitular() {
@@ -57,7 +62,7 @@ public abstract class Conta {
         return numero;
     }
 
-    public double getSaldo() {
+    public BigDecimal getSaldo() {
         return saldo;
     }
 

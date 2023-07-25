@@ -1,13 +1,23 @@
 package com.algaworks.banco.modelo;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Pessoa {
     private String nome;
     private String documento;
-    private Double rendimentoAnual;
+    private BigDecimal rendimentoAnual;
     private TipoPessoa tipo = TipoPessoa.FISICA;
     private LocalDateTime dataUltAtualizacao = LocalDateTime.now();
+
+    public Pessoa (){
+    }
+
+    public Pessoa(String nome, String documento) {
+        this.nome = nome;
+        this.documento = documento;
+    }
 
     public String getNome() {
         return nome;
@@ -25,11 +35,11 @@ public class Pessoa {
         this.documento = documento;
     }
 
-    public Double getRendimentoAnual() {
+    public BigDecimal getRendimentoAnual() {
         return rendimentoAnual;
     }
 
-    public void setRendimentoAnual(Double rendimentoAnual) {
+    public void setRendimentoAnual(BigDecimal rendimentoAnual) {
         this.rendimentoAnual = rendimentoAnual;
     }
 
@@ -47,5 +57,29 @@ public class Pessoa {
 
     public void setDataUltAtualizacao(LocalDateTime dataUltAtualizacao) {
         this.dataUltAtualizacao = dataUltAtualizacao;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "nome='" + nome + '\'' +
+                ", documento='" + documento + '\'' +
+                ", tipo=" + tipo +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pessoa pessoa = (Pessoa) o;
+
+        return Objects.equals(documento, pessoa.documento);
+    }
+
+    @Override
+    public int hashCode() {
+        return documento.hashCode();
     }
 }
