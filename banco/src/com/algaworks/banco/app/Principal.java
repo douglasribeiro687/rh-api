@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class Principal {
     public static void main(String[] args) {
         Pessoa titular1 = new Pessoa();
-        titular1.setNome("Douglas Ribeiro");
+        titular1.setNome("Douglas Ribeiro teste ");
         titular1.setDocumento("123.123.123-99");
         titular1.setRendimentoAnual(new BigDecimal(("15000")));
 
