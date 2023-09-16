@@ -18,6 +18,6 @@ public class TesteCalculo {
         x = x.subtract(new BigDecimal("0.20"));
         x = x.subtract(new BigDecimal("0.30"));
 
-        System.out.println("x = " + x);
+        System.out.println("Teste de cálculo: x = " + x);
     }
 }
